@@ -1,12 +1,19 @@
-import { ITodo } from '@/src/stores/ITodo';
-import { IUser } from '@/src/stores/IUser';
-import { ITodoStore, TodoStore } from '@/src/stores/TodoStore';
-import { UserStore } from '@/src/stores/UserStore';
+import Card from '@/src/components/Card';
+import { CombineStore } from '@/src/stores/CombindStore';
+import { ITodo } from '@/src/stores/todo/ITodo';
+import { ITodoStore, TodoStore } from '@/src/stores/todo/TodoStore';
+import { IUser } from '@/src/stores/User/IUser';
+import { UserStore } from '@/src/stores/User/UserStore';
+
 import { useAtom } from 'jotai';
-import type { GetServerSideProps, NextPage } from 'next';
+import type {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage
+} from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useDebugValue } from 'react';
+import { useDebugValue, useEffect, useMemo, useState } from 'react';
 
 export type IGetTodoList = {
   listTodo?: Omit<ITodoStore, 'listTodo'>;
@@ -34,15 +41,16 @@ export const getServerSideProps: GetServerSideProps<
 
 const Home: NextPage = () => {
   const [todoStore, setTodos] = useAtom(TodoStore);
+  const [combindStore] = useAtom(CombineStore);
   const [users] = useAtom(UserStore);
+
+  const todos = useMemo(() => {
+    const _todoStore = [...todoStore.listTodo];
+    return _todoStore.splice(0, 10);
+  }, [todoStore.listTodo]);
 
   useDebugValue(todoStore);
 
-  const handleRemoveThis = (id: number) => {
-    const _todoStore = { ...todoStore };
-    const filterResult = _todoStore.listTodo.filter((todo) => todo.id !== id);
-    setTodos({ ..._todoStore, listTodo: filterResult });
-  };
   return (
     <div>
       <Head>
@@ -51,13 +59,15 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex min-h-screen w-full flex-col items-center justify-center font-inter text-2xl font-semibold">
+      <main className="container mx-auto flex min-h-screen w-full flex-col items-center justify-center gap-4 font-inter text-2xl font-semibold">
         NextJs + State management. ⚡
         <hr />
-        <button onClick={() => handleRemoveThis(1)}>Remove id 1</button>
-        <code className="rounded bg-gray-200 px-2 py-4 text-sm">
-          {JSON.stringify(todoStore.listTodo[0])}
-        </code>
+        <span>Todo count : {combindStore}</span>
+        <div>
+          {todos.map((todo, index) => {
+            return <Card content={todo} key={todo.id} />;
+          })}
+        </div>
         <hr />
         {/* <code>{JSON.stringify(users.users[0])}</code> */}
       </main>

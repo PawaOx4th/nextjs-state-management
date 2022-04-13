@@ -1,4 +1,4 @@
-import { ITodo } from './ITodo';
+import { ITodo } from '../ITodoo';
 import { atom } from 'jotai';
 
 export interface ITodoStore {

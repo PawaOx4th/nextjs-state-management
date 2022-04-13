@@ -2,11 +2,11 @@ import '../styles/globals.css';
 import type { AppProps as NextAppProps } from 'next/app';
 import { useHydrateAtoms } from 'jotai/utils';
 import { useAtomsDevtools } from 'jotai/devtools';
-import { TodoStore } from '@/src/stores/TodoStore';
 import { IGetTodoList } from '.';
-import { UserStore } from '@/src/stores/UserStore';
-import { ITodo } from '@/src/stores/ITodo';
+import { ITodo } from '@/src/stores/todo/ITodo';
 import { ReactElement } from 'react';
+import { TodoStore } from '@/src/stores/todo/TodoStore';
+import { UserStore } from '@/src/stores/User/UserStore';
 
 type AppProps<P = any> = {
   pageProps: P;

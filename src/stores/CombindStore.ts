@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { TodoStore } from './TodoStore';
+import { TodoStore } from './todo/TodoStore';
 
 export const CombineStore = atom((get) => {
   const todosCount = get(TodoStore);
