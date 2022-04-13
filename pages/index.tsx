@@ -1,6 +1,6 @@
-import type { NextPage } from "next"
-import Head from "next/head"
-import Image from "next/image"
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
 
 const Home: NextPage = () => {
   return (
@@ -11,11 +11,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="text-2xl font-inter font-semibold flex justify-center items-center min-h-screen w-full">
+      <main className="flex min-h-screen w-full items-center justify-center font-inter text-2xl font-semibold">
         NextJs + State management. ⚡
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
