@@ -11,7 +11,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main></main>
+      <main className="text-2xl font-inter font-semibold flex justify-center items-center min-h-screen w-full">
+        NextJs + State management. ⚡
+      </main>
     </div>
   )
 }
