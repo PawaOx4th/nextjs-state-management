@@ -1,8 +1,48 @@
-import type { NextPage } from 'next';
+import { ITodo } from '@/src/stores/ITodo';
+import { IUser } from '@/src/stores/IUser';
+import { ITodoStore, TodoStore } from '@/src/stores/TodoStore';
+import { UserStore } from '@/src/stores/UserStore';
+import { useAtom } from 'jotai';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useDebugValue } from 'react';
+
+export type IGetTodoList = {
+  listTodo?: Omit<ITodoStore, 'listTodo'>;
+  users?: IUser[];
+};
+
+export const getServerSideProps: GetServerSideProps<
+  IGetTodoList
+> = async () => {
+  const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+  const result: ITodo[] = await response.json();
+  // console.log('🐳 RESULT :', result[0]);
+  const responseUser = await fetch(
+    'https://jsonplaceholder.typicode.com/users'
+  );
+  const resultUser: IUser[] = await responseUser.json();
+
+  return {
+    props: {
+      listTodo: result,
+      users: resultUser
+    }
+  };
+};
 
 const Home: NextPage = () => {
+  const [todoStore, setTodos] = useAtom(TodoStore);
+  const [users] = useAtom(UserStore);
+
+  useDebugValue(todoStore);
+
+  const handleRemoveThis = (id: number) => {
+    const _todoStore = { ...todoStore };
+    const filterResult = _todoStore.listTodo.filter((todo) => todo.id !== id);
+    setTodos({ ..._todoStore, listTodo: filterResult });
+  };
   return (
     <div>
       <Head>
@@ -11,8 +51,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex min-h-screen w-full items-center justify-center font-inter text-2xl font-semibold">
+      <main className="flex min-h-screen w-full flex-col items-center justify-center font-inter text-2xl font-semibold">
         NextJs + State management. ⚡
+        <hr />
+        <button onClick={() => handleRemoveThis(1)}>Remove id 1</button>
+        <code>{JSON.stringify(todoStore.listTodo[0])}</code>
+        <hr />
+        <code>{JSON.stringify(users.users[0])}</code>
       </main>
     </div>
   );
