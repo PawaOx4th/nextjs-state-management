@@ -55,9 +55,11 @@ const Home: NextPage = () => {
         NextJs + State management. ⚡
         <hr />
         <button onClick={() => handleRemoveThis(1)}>Remove id 1</button>
-        <code>{JSON.stringify(todoStore.listTodo[0])}</code>
+        <code className="rounded bg-gray-200 px-2 py-4 text-sm">
+          {JSON.stringify(todoStore.listTodo[0])}
+        </code>
         <hr />
-        <code>{JSON.stringify(users.users[0])}</code>
+        {/* <code>{JSON.stringify(users.users[0])}</code> */}
       </main>
     </div>
   );
