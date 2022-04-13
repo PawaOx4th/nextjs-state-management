@@ -59,7 +59,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="container mx-auto flex min-h-screen w-full flex-col items-center justify-center gap-4 font-inter text-2xl font-semibold">
+      <main
+        className="
+      container mx-auto flex min-h-screen w-full flex-col items-center justify-center gap-4 font-inter text-2xl font-semibold
+      "
+      >
         NextJs + State management. ⚡
         <hr />
         <span>Todo count : {combindStore}</span>
