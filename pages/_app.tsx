@@ -12,13 +12,14 @@ type AppProps<P = any> = {
   pageProps: P;
 } & Omit<NextAppProps<P>, 'pageProps'>;
 
-const AtomsDevtools = ({ children }: { children: ReactElement }) => {
-  useAtomsDevtools('demo');
-  return children;
-};
+// const AtomsDevtools = ({ children }: { children: ReactElement }) => {
+//   useAtomsDevtools('demo');
+//   return children;
+// };
 
 function MyApp({ Component, pageProps }: AppProps<IGetTodoList>) {
   const { listTodo, users } = pageProps;
+  useAtomsDevtools('demo');
 
   /**
    * @example 1.
@@ -44,11 +45,7 @@ function MyApp({ Component, pageProps }: AppProps<IGetTodoList>) {
   };
   useHydrateAtoms(setAtom());
 
-  return (
-    <AtomsDevtools>
-      <Component {...pageProps} />
-    </AtomsDevtools>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;
