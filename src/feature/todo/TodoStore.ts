@@ -14,7 +14,9 @@ export class TodoStore {
 
   @computed
   get getTodoList() {
-    return this.listTodo.slice(0, 20);
+    const _listTodo = [...this.listTodo];
+    const result = _listTodo.slice(0, 20);
+    return result;
   }
 
   @action
@@ -22,8 +24,8 @@ export class TodoStore {
     this.listTodo = this.listTodo.filter((todo) => todo.id !== todoId);
   }
 
-  get countTodoIsComplated() {
-    return this.listTodo.filter((todo) => todo.completed).length;
+  get todoCount() {
+    return this.listTodo.length;
   }
 }
 

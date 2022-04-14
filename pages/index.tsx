@@ -7,6 +7,7 @@ import type {
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import Content from '../src/feature/todo/components/Content';
+import TodoCount from '../src/feature/todo/components/TodoCount';
 import { ITodo } from '../src/feature/todo/ITodo';
 import todoStore from '../src/feature/todo/TodoStore';
 import { fetchTodo } from '../src/services/todoServices';
@@ -48,6 +49,7 @@ const Home: NextPage<
         <hr />
         <div className="mt-3 h-[0.5px] w-7/12 bg-gray-600"></div>
         <Content />
+        <TodoCount />
       </main>
     </div>
   );
