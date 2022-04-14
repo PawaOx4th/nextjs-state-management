@@ -6,7 +6,7 @@ import type {
 } from 'next';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
-import Content from '../src/feature/todo/components/content';
+import Content from '../src/feature/todo/components/Content';
 import { ITodo } from '../src/feature/todo/ITodo';
 import todoStore from '../src/feature/todo/TodoStore';
 import { fetchTodo } from '../src/services/todoServices';
@@ -53,4 +53,4 @@ const Home: NextPage<
   );
 };
 
-export default observer(Home);
+export default Home;
