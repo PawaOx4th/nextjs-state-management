@@ -21,6 +21,10 @@ export class TodoStore {
   onDeleteThisItem(todoId: ITodo['id']) {
     this.listTodo = this.listTodo.filter((todo) => todo.id !== todoId);
   }
+
+  get countTodoIsComplated() {
+    return this.listTodo.filter((todo) => todo.completed).length;
+  }
 }
 
 const todoStore = new TodoStore();

@@ -6,6 +6,7 @@ import type {
 } from 'next';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
+import Content from '../src/feature/todo/components/content';
 import { ITodo } from '../src/feature/todo/ITodo';
 import todoStore from '../src/feature/todo/TodoStore';
 import { fetchTodo } from '../src/services/todoServices';
@@ -45,21 +46,8 @@ const Home: NextPage<
       >
         NextJs + State management. ⚡
         <hr />
-        <div className="mt-5  font-roboto text-sm">
-          <ul className="flex flex-col gap-3">
-            {todoStore.getTodoList.map((todo) => (
-              <li key={todo.id}>
-                <button
-                  className="text-md p mr-2 bg-blue-600 px-2 py-1 text-white"
-                  onClick={() => todoStore.onDeleteThisItem(todo.id)}
-                >
-                  &#xd7;
-                </button>
-                <strong>{todo.id}</strong> {todo.title}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <div className="mt-3 h-[0.5px] w-7/12 bg-gray-600"></div>
+        <Content />
       </main>
     </div>
   );
