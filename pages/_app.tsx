@@ -11,7 +11,6 @@ function MyApp({ Component, pageProps }: AppProps<Partial<IRootStoreProps>>) {
   const { listTodo } = pageProps;
 
   if (listTodo) {
-    // todoStore.setListTodo(listTodo);
     todoStore.setListTodo(listTodo);
   }
 

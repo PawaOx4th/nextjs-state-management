@@ -44,7 +44,7 @@ const Home: NextPage<
         className="flex min-h-screen w-full flex-col items-center justify-center border-2 font-inter text-2xl font-semibold transition-all hover:border"
         spellCheck={true}
       >
-        NextJs + State management. ⚡
+        NextJs + State management. with (mobx) ⚡
         <hr />
         <div className="mt-3 h-[0.5px] w-7/12 bg-gray-600"></div>
         <Content />
