@@ -7,7 +7,9 @@ import Head from 'next/head';
 import { useObservableState } from 'observable-hooks';
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { todos$ } from '../src/feature/todo/TodoStore';
+import Counter from '../src/feature/counter/Counter';
+import CardTodo from '../src/feature/todo/components/CardTodo';
+import { countTodoComplate$, todos$ } from '../src/feature/todo/TodoStore';
 import { ITodo } from '../src/interfaces/ITodo';
 
 export const getServerSideProps: GetServerSideProps<{
@@ -28,10 +30,18 @@ const Home: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ todoList }) => {
   const todoState = useObservableState(todos$);
+  const countTodoIscomplate = useObservableState(countTodoComplate$);
 
   const handleDeleteThisItem = (id: number) => {
     const _todos = todoState.filter((todo) => todo.id !== id);
     todos$.next(_todos);
+  };
+
+  const handleUpdateTodo = (id: number, newData: ITodo) => {
+    const _todoIndex = todoState.findIndex((todo) => todo.id === id);
+    const _todoState = [...todoState];
+    _todoState[_todoIndex].completed = !_todoState[_todoIndex].completed;
+    todos$.next(_todoState);
   };
 
   useEffect(() => {
@@ -52,32 +62,23 @@ const Home: NextPage<
         />
       </Head>
       {/* {!SSR && <Toaster />} */}
-      <main
-        className="my-4 flex min-h-screen w-full flex-col items-center justify-center  font-inter text-2xl font-semibold transition-all "
-        spellCheck={true}
-      >
+      <main className="container m-auto flex min-h-screen  flex-col items-center  justify-center font-inter text-2xl font-semibold transition-all">
         <h1 className="my-6 rounded bg-slate-200 p-3 font-inter text-3xl">
           {' '}
           NextJs + State management. ⚡
         </h1>
+        <Counter />
+        <div>Complate count : {countTodoIscomplate}</div>
         <hr />
         <section className="text-base">
           <ul>
-            {todoState.map((todo) => (
-              <li
+            {todoState.map((todo, index) => (
+              <CardTodo
                 key={todo.id}
-                className="my-2 flex justify-between border p-2 font-roboto transition-all hover:shadow-md"
-              >
-                <div>
-                  <strong>{todo.id}</strong>. {todo.title}
-                </div>
-                <button
-                  className="text-md rounded border border-white bg-green-500 px-2 text-white"
-                  onClick={() => handleDeleteThisItem(todo.id)}
-                >
-                  &#xd7;
-                </button>
-              </li>
+                todo={todo}
+                deleteThisTodo={handleDeleteThisItem}
+                updateThisTodo={handleUpdateTodo}
+              />
             ))}
           </ul>
         </section>
